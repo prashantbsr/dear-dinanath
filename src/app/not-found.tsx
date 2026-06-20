@@ -10,10 +10,10 @@ export default function NotFound() {
   return (
     <div className="mx-auto flex min-h-[50vh] max-w-2xl flex-col items-center justify-center text-center">
       <section className="flex flex-col items-center gap-6">
-        <p aria-hidden="true" className="chant text-5xl text-saffron">
+        <p aria-hidden="true" className="chant text-5xl text-accent" lang="sa">
           ॐ
         </p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h1 className="font-display text-2xl tracking-tight text-ink sm:text-3xl">
           This page seems to have wandered off.
         </h1>
         <p className="max-w-md text-muted">
@@ -22,7 +22,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="rounded-xl border border-line bg-surface px-5 py-2.5 text-sm font-medium text-saffron transition-colors hover:border-saffron"
+          className="rounded-sm border border-line bg-surface px-5 py-2.5 text-sm text-accent transition-colors hover:bg-surface-2 hover:text-ink"
         >
           Return to the chants
         </Link>
