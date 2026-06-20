@@ -32,7 +32,7 @@ export default function ThemeToggle() {
     return (
       <span
         aria-hidden="true"
-        className="inline-flex h-9 w-9 shrink-0 rounded-lg"
+        className="inline-flex h-9 w-9 shrink-0 rounded-sm"
       />
     );
   }
@@ -43,7 +43,7 @@ export default function ThemeToggle() {
       onClick={toggle}
       aria-pressed={isDark}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-surface text-muted transition-colors hover:text-ink hover:border-saffron-soft"
+      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm text-muted transition-colors hover:bg-surface-2 hover:text-ink"
     >
       {isDark ? (
         <svg
