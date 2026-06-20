@@ -4,39 +4,34 @@ import { site } from "@/lib/site";
 import ThemeToggle from "@/components/ThemeToggle";
 
 /**
- * Sticky site header: brand on the left, primary navigation, the GitHub link,
- * and the theme toggle on the right. Kept calm and uncluttered.
+ * Sticky site header: a thin leaf-toned strip. Brass granthi + wordmark on the
+ * left, quiet navigation, the source link, and the theme toggle on the right.
  */
 export default function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/80 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-5 py-3">
+    <header className="sticky top-0 z-40 border-b border-line bg-surface">
+      <div className="shell flex h-14 items-center justify-between gap-4">
         <Link
           href="/"
-          className="flex items-baseline gap-2 rounded-md font-semibold tracking-tight text-ink"
+          className="group flex shrink-0 items-center gap-2.5 rounded-sm font-display text-lg tracking-tight text-ink"
         >
-          <span>{site.name}</span>
-          <span
-            aria-hidden="true"
-            className="font-devanagari text-sm text-saffron"
-          >
-            {site.nameDevanagari}
-          </span>
+          <span aria-hidden="true" className="granthi shrink-0" />
+          <span className="whitespace-nowrap">{site.name}</span>
         </Link>
 
         <nav
           aria-label="Primary"
-          className="flex items-center gap-1 text-sm text-muted sm:gap-2"
+          className="flex items-center gap-1 text-muted sm:gap-1.5"
         >
           <Link
             href="/"
-            className="rounded-md px-2.5 py-1.5 transition-colors hover:text-ink"
+            className="rounded-sm px-2.5 py-1.5 text-sm transition-colors hover:text-ink"
           >
             Chants
           </Link>
           <Link
             href="/about"
-            className="rounded-md px-2.5 py-1.5 transition-colors hover:text-ink"
+            className="rounded-sm px-2.5 py-1.5 text-sm transition-colors hover:text-ink"
           >
             About
           </Link>
@@ -45,7 +40,7 @@ export default function SiteHeader() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub repository"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-ink"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-sm transition-colors hover:text-ink"
           >
             <svg
               width="18"
