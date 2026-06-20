@@ -76,6 +76,109 @@ This serves the built `out/` directory at [http://localhost:1992](http://localho
 
 > The app always runs on **port 1992**, in development, preview, and start.
 
+## 🗂️ Project structure
+
+```text
+dear-dinanath/
+├── posts/                # Chants as markdown files (front matter + verses)
+│   └── ganapati-vandana.md
+├── public/               # Static assets (favicon, etc.)
+│   └── favicon.svg
+├── src/
+│   ├── app/              # App Router pages, layout, and globals.css
+│   │   └── globals.css
+│   ├── components/       # UI components (header, footer, chant views, toggles)
+│   └── lib/              # Content and config helpers
+│       ├── types.ts      # Post, Verse, and Word interfaces
+│       ├── posts.ts      # Read and parse chants from posts/
+│       ├── site.ts       # Site metadata
+│       └── fonts.ts      # Self-hosted next/font setup
+├── next.config.mjs       # Static export config (output: export)
+├── postcss.config.mjs    # Tailwind CSS v4 via PostCSS
+├── tsconfig.json         # TypeScript (strict) and the @/ path alias
+└── package.json
+```
+
+## 📜 Adding a chant
+
+A chant is a single markdown file in `posts/`. It has YAML front matter describing the chant, a `verses` array holding the verse data, and an optional markdown body for study notes. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full walkthrough.
+
+```markdown
+---
+title: Ganapati Vandana
+slug: ganapati-vandana
+category: Vandana
+deity: Ganapati
+source: Rigveda 2.23.1
+difficulty: beginner
+order: 1
+description: The Rigvedic invocation to Ganapati, lord of the hosts.
+verses:
+  - devanagari: |
+      ग॒णानां॑ त्वा ग॒णप॑तिं हवामहे ...
+    plain: |
+      गणानां त्वा गणपतिं हवामहे ...
+    transliteration: |
+      gaṇānāṃ tvā gaṇapatiṃ havāmahe ...
+    phonetic: |
+      gananam tva ganapatim havamahe ...
+    translation: We invoke you, O Ganapati, lord of the hosts ...
+    words:
+      - { word: गणानाम्, meaning: "of the ganas (hosts)" }
+      - { word: त्वा, meaning: "you" }
+---
+
+## About this chant
+
+Optional markdown notes that render below the verses.
+```
+
+### Content model
+
+**Front matter fields**
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `title` | yes | Display title of the chant. |
+| `slug` | yes | URL slug (matches the file name). |
+| `category` | yes | Grouping label, for example `Vandana`. |
+| `deity` | no | The deity invoked, for example `Ganapati`. |
+| `source` | no | Scriptural source, for example `Rigveda 2.23.1`. |
+| `description` | yes | Short summary used on listings and for metadata. |
+| `difficulty` | no | One of `beginner`, `intermediate`, or `advanced`. |
+| `order` | no | Sort order within a category. |
+| `verses` | yes | Array of verse objects (see below). |
+
+**Verse fields**
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `devanagari` | yes | Devanagari text with svara (tone) marks. |
+| `plain` | no | Devanagari without the accent marks. |
+| `transliteration` | yes | IAST transliteration. |
+| `phonetic` | no | Simple phonetic spelling for newcomers. |
+| `translation` | yes | English translation of the verse. |
+| `words` | no | Array of `{ word, meaning }` for word-by-word study. |
+
+## 🌐 Deployment
+
+Because the app is a fully static export, the `out/` directory works on **GitHub Pages**, **Netlify**, **Cloudflare Pages**, or any static host. Just build and publish `out/`.
+
+An included **GitHub Actions** workflow builds and deploys the site automatically. When hosting on a **GitHub Pages project site** (served from a subpath like `/dear-dinanath`), set the `NEXT_PUBLIC_BASE_PATH` environment variable to that subpath so links and assets resolve correctly. Leave it empty for a user site or a custom domain.
+
+```bash
+NEXT_PUBLIC_BASE_PATH="/dear-dinanath" npm run build
+```
+
+## 🤝 Contributing
+
+Contributions are warmly welcome, whether you are fixing a typo, refining a translation, or adding a new chant. Please read [CONTRIBUTING.md](CONTRIBUTING.md) to get started, and take special care with the accuracy of the Devanagari and the svara marks.
+
 ## 📄 License
 
 Released under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgements
+
+- **Noto Serif Devanagari**, used under the [SIL Open Font License](https://openfontlicense.org), for its faithful rendering of Devanagari and Vedic accents.
+- The living **Sanskrit tradition** and the teachers, reciters, and scholars who have carried these chants across generations.
