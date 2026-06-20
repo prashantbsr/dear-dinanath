@@ -5,33 +5,53 @@
 
 /* ----------------------------------------------------------------------------
    Design tokens. Defined as CSS variables so they can switch at runtime for
-   dark mode, then exposed to Tailwind via `@theme inline`.
+   dark mode, then exposed to Tailwind via `@theme inline` (utilities like
+   bg-canvas, text-ink, text-saffron, border-line, font-devanagari).
 ---------------------------------------------------------------------------- */
 :root {
   --canvas: #fbf6ec;
   --surface: #fffdf8;
+  --surface-2: #f4ebdb;
   --ink: #241b12;
   --muted: #6f6253;
   --line: #e7dac4;
   --saffron: #c2510c;
+  --saffron-soft: #e98a4b;
+  --gold: #9a7411;
+  --maroon: #7a2230;
+  --ring: #c2510c;
+
+  /* Base size of a displayed chant line. Single source of truth so the reader's
+     font-size control can scale it (see VerseCard) without duplicating it. */
+  --chant-display-size: clamp(1.55rem, 1.05rem + 2.4vw, 2.5rem);
 }
 
 .dark {
   --canvas: #120e0a;
   --surface: #1c1610;
+  --surface-2: #241c14;
   --ink: #efe6d6;
   --muted: #b2a48e;
   --line: #322820;
   --saffron: #e8843c;
+  --saffron-soft: #b5601f;
+  --gold: #d7a93b;
+  --maroon: #c76072;
+  --ring: #e8843c;
 }
 
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-saffron: var(--saffron);
+  --color-saffron-soft: var(--saffron-soft);
+  --color-gold: var(--gold);
+  --color-maroon: var(--maroon);
+  --color-ring: var(--ring);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", sans-serif;
@@ -54,5 +74,83 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--saffron) 22%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Devanagari / Vedic chant text. Stacked svara (tone) marks sit above and
+     below the baseline, so it needs generous line-height to avoid clipping. */
+  .chant {
+    font-family: var(--font-devanagari);
+    line-height: 2.05;
+    letter-spacing: 0.004em;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-wrap: pretty;
+  }
+  .chant-display {
+    font-size: var(--chant-display-size);
+    line-height: 2.1;
+  }
+
+  /* Rendered Markdown notes (the prose that follows a chant's front matter). */
+  .notes {
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .notes h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .notes h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+  .notes p {
+    margin-block: 0.75rem;
+    color: var(--muted);
+  }
+  .notes strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .notes ol,
+  .notes ul {
+    margin-block: 0.75rem;
+    padding-left: 1.4rem;
+    color: var(--muted);
+  }
+  .notes ol {
+    list-style: decimal;
+  }
+  .notes ul {
+    list-style: disc;
+  }
+  .notes li {
+    margin-block: 0.3rem;
+  }
+  .notes a {
+    color: var(--saffron);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 }
