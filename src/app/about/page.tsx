@@ -54,6 +54,74 @@ export default function AboutPage() {
             sense of a verse is never a mystery.
           </p>
         </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold tracking-tight">
+            How the content works
+          </h2>
+          <p className="text-muted">
+            Each chant is a single Markdown file in the project&rsquo;s posts
+            folder. Its front matter holds the title, source, deity, and
+            difficulty, and the body holds the verses and any notes. When the
+            site is built, every one of those files becomes a static page, so
+            what you read is exactly what a contributor wrote, with nothing
+            generated in between.
+          </p>
+          <p className="text-muted">
+            The whole project is open source. If you would like to add a chant,
+            improve a translation, or fix a stray mark, the repository is on{" "}
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-saffron underline underline-offset-2"
+            >
+              GitHub
+            </a>
+            , and contributions are warmly welcome.
+          </p>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold tracking-tight">
+            The technology
+          </h2>
+          <p className="text-muted">
+            {site.name} is built with Next.js and exported as fully static HTML.
+            There is no server doing work while you read, which keeps every page
+            fast and friendly to slow connections. The fonts, including the
+            serif Devanagari that carries the chants, are self-hosted and
+            optimized so text appears quickly and renders the tone marks
+            correctly.
+          </p>
+          <p className="text-muted">
+            Because it is static, the site is comfortable to use offline once
+            visited, and it runs without trackers, analytics, or advertising of
+            any kind. Nothing about your reading is recorded.
+          </p>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold tracking-tight">
+            A note on accuracy
+          </h2>
+          <p className="text-muted">
+            Sanskrit is precise, and accents matter. If you notice an error in
+            the Devanagari, the svara marks, the transliteration, or a meaning,
+            please tell us. Opening an issue on{" "}
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-saffron underline underline-offset-2"
+            >
+              GitHub
+            </a>{" "}
+            is the surest way to have a correction reviewed and folded in. Every
+            careful eye makes these chants a little more trustworthy for the next
+            person.
+          </p>
+        </section>
       </article>
     </div>
   );
