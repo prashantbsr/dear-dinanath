@@ -6,12 +6,13 @@ interface VerseCardProps {
   scriptMode: "accented" | "plain";
   showTransliteration: boolean;
   showTranslation: boolean;
+  showWords: boolean;
   fontScale: number;
 }
 
 /**
  * A single verse rendered as a calm study card. The Devanagari is the hero,
- * with transliteration and translation revealed on demand.
+ * with transliteration, translation, and word glosses revealed on demand.
  */
 export default function VerseCard({
   verse,
@@ -19,6 +20,7 @@ export default function VerseCard({
   scriptMode,
   showTransliteration,
   showTranslation,
+  showWords,
   fontScale,
 }: VerseCardProps) {
   const devanagari =
@@ -58,6 +60,20 @@ export default function VerseCard({
 
       {showTranslation && (
         <p className="mt-5 leading-relaxed text-ink">{verse.translation}</p>
+      )}
+
+      {showWords && verse.words && verse.words.length > 0 && (
+        <dl className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {verse.words.map((entry, wordIndex) => (
+            <div
+              key={`${entry.word}-${wordIndex}`}
+              className="rounded-xl border border-line bg-surface-2 px-4 py-3"
+            >
+              <dt className="chant text-lg text-ink">{entry.word}</dt>
+              <dd className="mt-1 text-sm text-muted">{entry.meaning}</dd>
+            </div>
+          ))}
+        </dl>
       )}
     </article>
   );
