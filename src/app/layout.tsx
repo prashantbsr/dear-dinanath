@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
-import { inter, notoDeva } from "@/lib/fonts";
+import { marcellus, spectral, notoDeva } from "@/lib/fonts";
 import { site } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbf6ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#120e0a" },
+    { media: "(prefers-color-scheme: light)", color: "#efe6cf" },
+    { media: "(prefers-color-scheme: dark)", color: "#171109" },
   ],
 };
 
@@ -46,14 +46,12 @@ export default function RootLayout({
     <html
       lang={site.locale}
       suppressHydrationWarning
-      className={`${inter.variable} ${notoDeva.variable}`}
+      className={`${marcellus.variable} ${spectral.variable} ${notoDeva.variable}`}
     >
       <body>
         <ThemeScript />
         <SiteHeader />
-        <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:py-14">
-          {children}
-        </main>
+        <main className="shell py-12 sm:py-16">{children}</main>
         <SiteFooter />
       </body>
     </html>
