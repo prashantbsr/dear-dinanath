@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: toggled by adding `.dark` to <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------------------
+   Design tokens. Defined as CSS variables so they can switch at runtime for
+   dark mode, then exposed to Tailwind via `@theme inline`.
+---------------------------------------------------------------------------- */
+:root {
+  --canvas: #fbf6ec;
+  --surface: #fffdf8;
+  --ink: #241b12;
+  --muted: #6f6253;
+  --line: #e7dac4;
+  --saffron: #c2510c;
+}
+
+.dark {
+  --canvas: #120e0a;
+  --surface: #1c1610;
+  --ink: #efe6d6;
+  --muted: #b2a48e;
+  --line: #322820;
+  --saffron: #e8843c;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-saffron: var(--saffron);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-devanagari: var(--font-noto-deva), "Noto Serif Devanagari",
+    "Noto Sans Devanagari", serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
