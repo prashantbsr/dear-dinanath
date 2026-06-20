@@ -2,16 +2,14 @@
 // wrong theme. Server component that emits a tiny synchronous inline script.
 
 /**
- * The script reads the saved preference from localStorage. If it is "dark", or
- * if no preference is stored and the OS prefers a dark color scheme, it adds the
- * "dark" class to the document element. All of it is wrapped in try/catch so a
+ * Light is the default theme for everyone on a first visit, regardless of the OS
+ * setting. Dark is an explicit opt-in: we add the "dark" class only when the
+ * visitor has previously chosen it. All of it is wrapped in try/catch so a
  * blocked storage API never breaks the page.
  */
 const themeScript = `(function () {
   try {
-    var stored = localStorage.getItem("theme");
-    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (stored === "dark" || (!stored && prefersDark)) {
+    if (localStorage.getItem("theme") === "dark") {
       document.documentElement.classList.add("dark");
     }
   } catch (e) {}
