@@ -8,20 +8,20 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="max-w-[65ch]">
       <article className="flex flex-col gap-10">
         <header className="flex flex-col gap-3">
-          <p aria-hidden="true" className="chant text-2xl text-saffron">
+          <p aria-hidden="true" className="chant text-2xl text-accent" lang="sa">
             {site.nameDevanagari}
           </p>
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h1 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
             About {site.name}
           </h1>
           <p className="text-muted">{site.tagline}</p>
         </header>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold tracking-tight">
+          <h2 className="font-display text-xl tracking-tight text-ink">
             A quiet place to learn
           </h2>
           <p className="text-muted">
@@ -39,7 +39,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold tracking-tight">Why it exists</h2>
+          <h2 className="font-display text-xl tracking-tight text-ink">Why it exists</h2>
           <p className="text-muted">
             Chants are easy to find and surprisingly hard to learn well. Many
             sources drop the svara tone marks, blur the transliteration, or
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold tracking-tight">
+          <h2 className="font-display text-xl tracking-tight text-ink">
             How the content works
           </h2>
           <p className="text-muted">
@@ -74,7 +74,7 @@ export default function AboutPage() {
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-saffron underline underline-offset-2"
+              className="text-accent underline underline-offset-2 transition-colors hover:text-ink"
             >
               GitHub
             </a>
@@ -83,7 +83,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold tracking-tight">
+          <h2 className="font-display text-xl tracking-tight text-ink">
             The technology
           </h2>
           <p className="text-muted">
@@ -102,7 +102,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold tracking-tight">
+          <h2 className="font-display text-xl tracking-tight text-ink">
             A note on accuracy
           </h2>
           <p className="text-muted">
@@ -113,7 +113,7 @@ export default function AboutPage() {
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-saffron underline underline-offset-2"
+              className="text-accent underline underline-offset-2 transition-colors hover:text-ink"
             >
               GitHub
             </a>{" "}
