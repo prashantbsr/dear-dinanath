@@ -14,34 +14,48 @@ interface DisplayControlsProps {
   onIncreaseFontScale: () => void;
 }
 
-interface ToggleChipProps {
+interface TextToggleProps {
   label: string;
-  pressed: boolean;
+  active: boolean;
   onClick: () => void;
 }
 
-/** A pill toggle whose pressed state is reflected for assistive technology. */
-function ToggleChip({ label, pressed, onClick }: ToggleChipProps) {
+/**
+ * A flat text toggle. The active state is marked by a 1px accent underline (the
+ * same hairline grammar as the binding thread) plus an ink-weight shift — never
+ * a filled pill, and never color alone.
+ */
+function TextToggle({ label, active, onClick }: TextToggleProps) {
   return (
     <button
       type="button"
-      aria-pressed={pressed}
+      aria-pressed={active}
       onClick={onClick}
       className={[
-        "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
-        pressed
-          ? "border-saffron bg-saffron text-canvas"
-          : "border-line bg-surface text-muted hover:text-ink",
+        "relative inline-flex min-h-11 items-center rounded-sm px-1 text-sm transition-colors",
+        active ? "text-ink" : "text-muted hover:text-ink",
       ].join(" ")}
     >
       {label}
+      <span
+        aria-hidden="true"
+        className={[
+          "pointer-events-none absolute inset-x-1 bottom-2.25 h-px transition-colors",
+          active ? "bg-accent" : "bg-transparent",
+        ].join(" ")}
+      />
     </button>
   );
 }
 
+/** A small eyebrow label that introduces a control group. */
+function GroupLabel({ children }: { children: React.ReactNode }) {
+  return <span className="eyebrow text-[0.72rem]">{children}</span>;
+}
+
 /**
- * The sticky control bar for the reader. It governs script, the visibility of
- * transliteration, meaning, and word glosses, and the reading text size.
+ * The reader's control strip: one thin leaf-toned band, sticky just beneath the
+ * header. Three quiet groups — script, what to show, and text size.
  */
 export default function DisplayControls({
   scriptMode,
@@ -59,71 +73,67 @@ export default function DisplayControls({
   const isAccented = scriptMode === "accented";
 
   return (
-    <div className="sticky top-16 z-20 -mx-4 mb-8 border-b border-line bg-canvas/80 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div
-          role="group"
-          aria-label="Script"
-          className="inline-flex rounded-full border border-line bg-surface-2 p-1"
-        >
-          <button
-            type="button"
-            aria-pressed={isAccented}
+    <div
+      className="sticky z-20 border-b border-line bg-surface"
+      style={{ top: "var(--header-h)" }}
+    >
+      <div className="flex flex-wrap items-center gap-x-7 gap-y-1 py-1.5">
+        <div className="flex items-center gap-2">
+          <GroupLabel>Script</GroupLabel>
+          <TextToggle
+            label="Accented"
+            active={isAccented}
             onClick={() => onScriptModeChange("accented")}
-            className={[
-              "rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
-              isAccented ? "bg-surface text-ink shadow-sm" : "text-muted hover:text-ink",
-            ].join(" ")}
-          >
-            Accented
-          </button>
-          <button
-            type="button"
-            aria-pressed={!isAccented}
+          />
+          <TextToggle
+            label="Plain"
+            active={!isAccented}
             onClick={() => onScriptModeChange("plain")}
-            className={[
-              "rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
-              !isAccented ? "bg-surface text-ink shadow-sm" : "text-muted hover:text-ink",
-            ].join(" ")}
-          >
-            Plain
-          </button>
+          />
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <ToggleChip
+        <div className="flex items-center gap-2">
+          <GroupLabel>Show</GroupLabel>
+          <TextToggle
             label="Transliteration"
-            pressed={showTransliteration}
+            active={showTransliteration}
             onClick={onToggleTransliteration}
           />
-          <ToggleChip
+          <TextToggle
             label="Meaning"
-            pressed={showTranslation}
+            active={showTranslation}
             onClick={onToggleTranslation}
           />
-          <ToggleChip
+          <TextToggle
             label="Words"
-            pressed={showWords}
+            active={showWords}
             onClick={onToggleWords}
           />
         </div>
 
-        <div className="flex items-center gap-1 sm:ml-auto">
+        <div className="flex items-center gap-1.5 sm:ml-auto">
+          <GroupLabel>Size</GroupLabel>
           <button
             type="button"
             aria-label="Decrease text size"
             onClick={onDecreaseFontScale}
             disabled={fontScale <= 0.85}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-sm text-muted transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm font-display text-sm text-muted transition-colors hover:bg-surface-2 hover:text-ink disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
           >
             A
           </button>
+          <span
+            aria-hidden="true"
+            className="w-9 text-center text-xs tabular-nums text-muted"
+          >
+            {Math.round(fontScale * 100)}%
+          </span>
           <button
             type="button"
             aria-label="Increase text size"
             onClick={onIncreaseFontScale}
             disabled={fontScale >= 1.6}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-lg text-muted transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm font-display text-lg text-muted transition-colors hover:bg-surface-2 hover:text-ink disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
           >
             A
           </button>
