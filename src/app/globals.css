@@ -1,43 +1,59 @@
 @import "tailwindcss";
 
-/* Class-based dark mode: toggled by adding `.dark` to <html>. */
+/* Class-based dark mode: toggled by adding `.dark` to <html>. Light is default. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ----------------------------------------------------------------------------
-   Design tokens. Defined as CSS variables so they can switch at runtime for
-   dark mode, then exposed to Tailwind via `@theme inline` (utilities like
-   bg-canvas, text-ink, text-saffron, border-line, font-devanagari).
+   Design tokens — see design.md. Defined as CSS variables so they can switch at
+   runtime for dark mode, then exposed to Tailwind via `@theme inline` (utilities
+   like bg-canvas, text-ink, text-accent, border-line, font-display).
+
+   Concept: the page is a palm-leaf manuscript (pothi). Toasted-ochre leaf,
+   oxidized-kumkum accent, brass for one precious touch, a quiet leaf-green note.
 ---------------------------------------------------------------------------- */
 :root {
-  --canvas: #fbf6ec;
-  --surface: #fffdf8;
-  --surface-2: #f4ebdb;
-  --ink: #241b12;
-  --muted: #6f6253;
-  --line: #e7dac4;
-  --saffron: #c2510c;
-  --saffron-soft: #e98a4b;
+  color-scheme: light;
+
+  --canvas: #efe6cf;
+  --surface: #f6f0df;
+  --surface-2: #e6dabb;
+  --ink: #2a2014;
+  --muted: #6c5d44;
+  --line: #cdbd98;
+  --accent: #8a3324;
+  --accent-soft: #b9714b;
   --gold: #9a7411;
-  --maroon: #7a2230;
-  --ring: #c2510c;
+  --secondary: #5c6b3a;
+  --ring: #8a3324;
+
+  /* The shared reading measure (header, main, footer all align to this). The
+     Devanagari verse uses the full width; prose/apparatus is capped at ~62ch. */
+  --measure: 54rem;
+  /* Left gutter inside the reader that carries the binding thread + folio. */
+  --thread-gutter: clamp(2.25rem, 1.5rem + 3vw, 3.25rem);
+  /* Height of the sticky site header, so the controls strip can sit flush below. */
+  --header-h: 3.5rem;
 
   /* Base size of a displayed chant line. Single source of truth so the reader's
-     font-size control can scale it (see VerseCard) without duplicating it. */
-  --chant-display-size: clamp(1.55rem, 1.05rem + 2.4vw, 2.5rem);
+     font-size control can scale it (see VerseCard) without duplicating it. Kept
+     moderate so long padas mostly hold one line; the reader can scale up. */
+  --chant-display-size: clamp(1.5rem, 1.05rem + 1.5vw, 2.1rem);
 }
 
 .dark {
-  --canvas: #120e0a;
-  --surface: #1c1610;
-  --surface-2: #241c14;
-  --ink: #efe6d6;
-  --muted: #b2a48e;
-  --line: #322820;
-  --saffron: #e8843c;
-  --saffron-soft: #b5601f;
+  color-scheme: dark;
+
+  --canvas: #171109;
+  --surface: #1f1810;
+  --surface-2: #2a2015;
+  --ink: #ece1c8;
+  --muted: #a8967a;
+  --line: #3a2e1e;
+  --accent: #cf6b4a;
+  --accent-soft: #9a5236;
   --gold: #d7a93b;
-  --maroon: #c76072;
-  --ring: #e8843c;
+  --secondary: #9aa86a;
+  --ring: #cf6b4a;
 }
 
 @theme inline {
@@ -47,14 +63,14 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-saffron: var(--saffron);
-  --color-saffron-soft: var(--saffron-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --color-gold: var(--gold);
-  --color-maroon: var(--maroon);
+  --color-secondary: var(--secondary);
   --color-ring: var(--ring);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
+  --font-display: var(--font-marcellus), "Marcellus", ui-serif, Georgia, serif;
+  --font-text: var(--font-spectral), "Spectral", ui-serif, Georgia, serif;
   --font-devanagari: var(--font-noto-deva), "Noto Serif Devanagari",
     "Noto Sans Devanagari", serif;
 }
@@ -70,13 +86,14 @@
   body {
     background-color: var(--canvas);
     color: var(--ink);
-    font-family: var(--font-sans);
+    font-family: var(--font-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: color-mix(in srgb, var(--saffron) 22%, transparent);
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -94,11 +111,35 @@
 }
 
 @layer components {
+  /* The one shared container. Header, main, and footer all use it so every
+     left edge aligns — no more max-w-4xl vs max-w-3xl mismatch. */
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--measure);
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Eyebrow / small caps label: source lines, section kickers, the svara key. */
+  .eyebrow {
+    font-family: var(--font-text);
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
   /* Devanagari / Vedic chant text. Stacked svara (tone) marks sit above and
-     below the baseline, so it needs generous line-height to avoid clipping. */
+     below the baseline, so it needs generous line-height so they never clip. */
   .chant {
     font-family: var(--font-devanagari);
-    line-height: 2.05;
+    line-height: 2.1;
     letter-spacing: 0.004em;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     text-wrap: pretty;
@@ -108,26 +149,83 @@
     line-height: 2.1;
   }
 
-  /* Rendered Markdown notes (the prose that follows a chant's front matter). */
+  /* The binding thread (signature). A single continuous 1px hairline running
+     down the reader's left gutter — the cord that binds a pothi's leaves. It is
+     drawn once on load, top-down. Granthi knots and folio numerals overlay it. */
+  .thread-rail {
+    position: relative;
+  }
+  .thread-rail::before {
+    content: "";
+    position: absolute;
+    top: 0.7rem;
+    bottom: 0.7rem;
+    left: calc(var(--thread-gutter) / 2);
+    width: 1px;
+    background: var(--line);
+    transform-origin: top center;
+    animation: thread-draw 0.4s ease-out both;
+  }
+  @keyframes thread-draw {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  /* Brass granthi: the binding knot beside each verse. A small inlaid diamond. */
+  .granthi {
+    width: 7px;
+    height: 7px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffffff 22%, transparent);
+  }
+
+  /* Apparatus reveal: IAST / translation / glosses unfurl like a turned leaf. */
+  .reveal {
+    animation: reveal 0.18s ease-out both;
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Rendered Markdown notes — the prose that follows a chant's front matter.
+     The only `surface` panel in the article. */
   .notes {
     line-height: 1.75;
-    color: var(--ink);
+    color: var(--muted);
   }
   .notes h2 {
+    font-family: var(--font-display);
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 400;
+    color: var(--ink);
     margin-top: 1.75rem;
     margin-bottom: 0.5rem;
   }
+  .notes h2:first-child {
+    margin-top: 0;
+  }
   .notes h3 {
+    font-family: var(--font-display);
     font-size: 1.05rem;
-    font-weight: 600;
+    font-weight: 400;
+    color: var(--ink);
     margin-top: 1.25rem;
     margin-bottom: 0.4rem;
   }
   .notes p {
     margin-block: 0.75rem;
-    color: var(--muted);
   }
   .notes strong {
     color: var(--ink);
@@ -137,7 +235,6 @@
   .notes ul {
     margin-block: 0.75rem;
     padding-left: 1.4rem;
-    color: var(--muted);
   }
   .notes ol {
     list-style: decimal;
@@ -149,7 +246,7 @@
     margin-block: 0.3rem;
   }
   .notes a {
-    color: var(--saffron);
+    color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
