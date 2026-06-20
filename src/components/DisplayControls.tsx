@@ -5,10 +5,13 @@ interface DisplayControlsProps {
   showTransliteration: boolean;
   showTranslation: boolean;
   showWords: boolean;
+  fontScale: number;
   onScriptModeChange: (mode: ScriptMode) => void;
   onToggleTransliteration: () => void;
   onToggleTranslation: () => void;
   onToggleWords: () => void;
+  onDecreaseFontScale: () => void;
+  onIncreaseFontScale: () => void;
 }
 
 interface ToggleChipProps {
@@ -37,18 +40,21 @@ function ToggleChip({ label, pressed, onClick }: ToggleChipProps) {
 }
 
 /**
- * The sticky control bar for the reader. It governs script and the visibility
- * of transliteration, meaning, and word glosses.
+ * The sticky control bar for the reader. It governs script, the visibility of
+ * transliteration, meaning, and word glosses, and the reading text size.
  */
 export default function DisplayControls({
   scriptMode,
   showTransliteration,
   showTranslation,
   showWords,
+  fontScale,
   onScriptModeChange,
   onToggleTransliteration,
   onToggleTranslation,
   onToggleWords,
+  onDecreaseFontScale,
+  onIncreaseFontScale,
 }: DisplayControlsProps) {
   const isAccented = scriptMode === "accented";
 
@@ -100,6 +106,27 @@ export default function DisplayControls({
             pressed={showWords}
             onClick={onToggleWords}
           />
+        </div>
+
+        <div className="flex items-center gap-1 sm:ml-auto">
+          <button
+            type="button"
+            aria-label="Decrease text size"
+            onClick={onDecreaseFontScale}
+            disabled={fontScale <= 0.85}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-sm text-muted transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            A
+          </button>
+          <button
+            type="button"
+            aria-label="Increase text size"
+            onClick={onIncreaseFontScale}
+            disabled={fontScale >= 1.6}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-lg text-muted transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            A
+          </button>
         </div>
       </div>
     </div>
