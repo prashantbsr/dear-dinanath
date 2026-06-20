@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { marked } from "marked";
 import type { Metadata } from "next";
 import { getPost, getPostSlugs } from "@/lib/posts";
 import ChantReader from "@/components/ChantReader";
@@ -42,6 +43,7 @@ export default async function ChantPage({
 }) {
   const { slug } = await params;
   const post = getPost(slug);
+  const notesHtml = post.body ? await marked.parse(post.body) : null;
 
   return (
     <article>
@@ -73,6 +75,13 @@ export default async function ChantPage({
       <div className="mt-8">
         <ChantReader post={post} />
       </div>
+
+      {notesHtml && (
+        <section
+          className="notes mt-12 max-w-2xl"
+          dangerouslySetInnerHTML={{ __html: notesHtml }}
+        />
+      )}
     </article>
   );
 }
