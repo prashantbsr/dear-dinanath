@@ -121,14 +121,16 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --color-gold: var(--gold);
   --color-secondary: var(--secondary);
   --color-ring: var(--ring);
 
-  --font-display: var(--font-marcellus), "Marcellus", ui-serif, Georgia, serif;
-  --font-text: var(--font-spectral), "Spectral", ui-serif, Georgia, serif;
-  --font-devanagari: var(--font-noto-deva), "Noto Serif Devanagari",
-    "Noto Sans Devanagari", serif;
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-text: var(--font-plex-sans), "IBM Plex Sans", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --font-devanagari: var(--font-tiro-deva), "Tiro Devanagari Sanskrit",
+    "Noto Serif Devanagari", serif;
 }
 
 @layer base {
