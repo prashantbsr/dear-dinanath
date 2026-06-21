@@ -125,8 +125,6 @@ export default function ChantReader({ post }: ChantReaderProps) {
         onIncreaseFontScale={increaseFontScale}
       />
 
-      {prefs.scriptMode === "accented" && <SvaraKey />}
-
       <div className="mt-[clamp(1.625rem,5vw,2.375rem)]">
         {post.verses.map((verse, index) => (
           <VerseCard
@@ -141,40 +139,6 @@ export default function ChantReader({ post }: ChantReaderProps) {
           />
         ))}
       </div>
-    </div>
-  );
-}
-
-/**
- * A one-line legend for the two Vedic tone marks, shown only in accented mode.
- * It names the three registers the page's generous line-height exists to hold:
- * udatta rises above the line, anudatta falls below it. The marks are drawn on a
- * dotted circle (the Unicode convention for an isolated combining mark).
- */
-function SvaraKey() {
-  return (
-    <div className="mt-7 inline-flex flex-wrap items-center gap-x-5 gap-y-1.5 rounded-xl border border-line bg-surface px-4 py-2.5 text-[0.78rem] text-muted">
-      <span className="eyebrow mr-1">Svara key</span>
-      <span className="flex items-center gap-2">
-        <span
-          aria-hidden="true"
-          lang="sa"
-          className="chant text-xl leading-none text-secondary"
-        >
-          ◌॑
-        </span>
-        udātta — raised
-      </span>
-      <span className="flex items-center gap-2">
-        <span
-          aria-hidden="true"
-          lang="sa"
-          className="chant text-xl leading-none text-secondary"
-        >
-          ◌॒
-        </span>
-        anudātta — lowered
-      </span>
     </div>
   );
 }

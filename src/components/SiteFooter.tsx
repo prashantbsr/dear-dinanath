@@ -1,9 +1,8 @@
 import { site } from "@/lib/site";
 
 /**
- * Quiet footer: a thin strip with a single top hairline. The wordmark, the
- * license note with a source link, and a one-line svara legend echo (the tone
- * marks rendered in the chant face, tinted with the secondary note).
+ * Quiet footer: a thin strip with a single top hairline holding the wordmark
+ * and the license note with a source link.
  */
 export default function SiteFooter() {
   return (
@@ -35,17 +34,6 @@ export default function SiteFooter() {
           >
             View the source on GitHub
           </a>
-        </p>
-
-        <p className="eyebrow flex items-center gap-2 normal-case tracking-normal">
-          <span aria-hidden="true" lang="sa" className="chant text-base leading-none text-secondary">
-            ◌॑
-          </span>
-          above ·
-          <span aria-hidden="true" lang="sa" className="chant text-base leading-none text-secondary">
-            ◌॒
-          </span>
-          below
         </p>
       </div>
     </footer>
