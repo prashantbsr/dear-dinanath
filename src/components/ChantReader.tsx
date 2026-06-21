@@ -153,16 +153,24 @@ export default function ChantReader({ post }: ChantReaderProps) {
  */
 function SvaraKey() {
   return (
-    <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted">
-      <span className="eyebrow text-[0.72rem]">Svara</span>
-      <span className="flex items-center gap-1.5">
-        <span aria-hidden="true" className="font-devanagari text-lg text-secondary">
+    <div className="mt-7 inline-flex flex-wrap items-center gap-x-5 gap-y-1.5 rounded-xl border border-line bg-surface px-4 py-2.5 text-[0.78rem] text-muted">
+      <span className="eyebrow mr-1">Svara key</span>
+      <span className="flex items-center gap-2">
+        <span
+          aria-hidden="true"
+          lang="sa"
+          className="chant text-xl leading-none text-secondary"
+        >
           ◌॑
         </span>
         udātta — raised
       </span>
-      <span className="flex items-center gap-1.5">
-        <span aria-hidden="true" className="font-devanagari text-lg text-secondary">
+      <span className="flex items-center gap-2">
+        <span
+          aria-hidden="true"
+          lang="sa"
+          className="chant text-xl leading-none text-secondary"
+        >
           ◌॒
         </span>
         anudātta — lowered
