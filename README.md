@@ -12,7 +12,7 @@
 </div>
 
 > [!CAUTION]
-> At moment you will find many contradictions in the running app in contrast to the concept. This project is just started by Claude, and I will make more improvements soon.
+> At moment you will find many contradictions in the running app in contrast to the concept. This project is just scaffolded, and I will make more improvements soon.
 
 ---
 A static web app for make it easier for new generation to learn shlokas and chants.
