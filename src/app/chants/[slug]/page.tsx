@@ -36,34 +36,44 @@ export default async function ChantPage({
   ) as string[];
 
   return (
-    <article>
+    <article className="relative">
+      {/* Soft secondary glow behind the title — purely decorative. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-2 left-0 -z-10 h-72 w-[min(55vw,20rem)]"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--secondary) 12%, transparent), transparent 62%)",
+        }}
+      />
+
       <Link
         href="/"
-        className="eyebrow inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+        className="eyebrow inline-flex items-center gap-1.5 normal-case tracking-normal transition-colors hover:text-accent"
       >
         <span aria-hidden="true">&larr;</span>
         All chants
       </Link>
 
-      <header className="mt-7 max-w-[62ch]">
-        <h1 className="font-display text-[clamp(1.9rem,1.4rem+2.4vw,3rem)] leading-[1.12] tracking-tight text-ink">
+      <header className="mt-3.5 max-w-[62ch]">
+        <h1 className="glow-text font-display text-[clamp(2rem,8.5vw,2.875rem)] font-semibold leading-none tracking-tight text-ink">
           {post.title}
         </h1>
 
-        {meta.length > 0 && <CitationLine items={meta} />}
+        {meta.length > 0 && <CitationLine items={meta} className="mt-3.5" />}
 
-        <p className="mt-5 text-[1.075rem] leading-relaxed text-muted">
+        <p className="mt-3.5 text-[clamp(0.84rem,3.5vw,0.94rem)] leading-relaxed text-muted">
           {post.description}
         </p>
       </header>
 
-      <div className="mt-9">
+      <div className="mt-7">
         <ChantReader post={post} />
       </div>
 
       {notesHtml && (
         <section
-          className="notes mt-14 max-w-[62ch] rounded-sm border-t border-line bg-surface px-5 py-6 sm:px-7 sm:py-7"
+          className="notes mt-[clamp(1.875rem,6vw,2.875rem)] max-w-[62ch] border-t-2 border-line pt-[clamp(1.625rem,5vw,2.25rem)]"
           dangerouslySetInnerHTML={{ __html: notesHtml }}
         />
       )}
