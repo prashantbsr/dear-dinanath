@@ -50,7 +50,7 @@ export default function RootLayout({
       <body>
         <ThemeScript />
         <SiteHeader />
-        <main className="shell py-12 sm:py-16">{children}</main>
+        <main className="shell flex-1 py-12 sm:py-16">{children}</main>
         <SiteFooter />
       </body>
     </html>
