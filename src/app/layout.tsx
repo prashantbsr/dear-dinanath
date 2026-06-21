@@ -31,10 +31,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#efe6cf" },
-    { media: "(prefers-color-scheme: dark)", color: "#171109" },
-  ],
+  // The default palette is Slate (light) for everyone on first paint; dark is an
+  // explicit opt-in, so the browser chrome color tracks Slate's canvas.
+  themeColor: "#f6f7f9",
 };
 
 export default function RootLayout({
