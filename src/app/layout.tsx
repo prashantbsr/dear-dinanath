@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
-import { marcellus, spectral, notoDeva } from "@/lib/fonts";
+import { bricolage, plexSans, plexMono, tiroDeva } from "@/lib/fonts";
 import { site } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -46,7 +46,7 @@ export default function RootLayout({
     <html
       lang={site.locale}
       suppressHydrationWarning
-      className={`${marcellus.variable} ${spectral.variable} ${notoDeva.variable}`}
+      className={`${bricolage.variable} ${plexSans.variable} ${plexMono.variable} ${tiroDeva.variable}`}
     >
       <body>
         <ThemeScript />
