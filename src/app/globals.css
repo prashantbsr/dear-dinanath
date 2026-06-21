@@ -173,104 +173,75 @@
 }
 
 @layer components {
-  /* The one shared container. Header, main, and footer all use it so every
-     left edge aligns — no more max-w-4xl vs max-w-3xl mismatch. */
+  /* The one shared container. Header, main, and footer all use it so every left
+     edge aligns to the same measure. */
   .shell {
     margin-inline: auto;
     width: 100%;
     max-width: var(--measure);
-    padding-inline: 1.25rem;
-  }
-  @media (min-width: 640px) {
-    .shell {
-      padding-inline: 2rem;
-    }
+    padding-inline: clamp(1rem, 5vw, 2.5rem);
   }
 
-  /* Eyebrow / small caps label: source lines, section kickers, the svara key. */
+  /* Eyebrow / mono label: source/citation lines, group headings, the count line,
+     the svara-key label. Set in the mono face, uppercase, widely tracked. */
   .eyebrow {
-    font-family: var(--font-text);
+    font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--muted);
+    line-height: 1.5;
   }
 
-  /* Devanagari / Vedic chant text. Stacked svara (tone) marks sit above and
-     below the baseline, so it needs generous line-height so they never clip. */
+  /* Optional luminous text-shadow — resolves to `none` in light/onyx palettes,
+     a soft accent glow in Aura/Cyberpunk. Applied to the wordmark, hero titles,
+     and the decorative accent marks. */
+  .glow-text {
+    text-shadow: var(--glow);
+  }
+
+  /* Devanagari / Vedic chant text. Stacked svara (tone) marks sit above and below
+     the baseline, so the line-height is deliberately generous. */
   .chant {
     font-family: var(--font-devanagari);
-    line-height: 2.1;
-    letter-spacing: 0.004em;
+    line-height: 2.05;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     text-wrap: pretty;
   }
+  /* The hero chant line. Size = base token × the reader's --scale; height stays a
+     constant 2.05 so marks never clip as the text grows. */
   .chant-display {
-    font-size: var(--chant-display-size);
-    line-height: 2.1;
+    font-size: calc(var(--chant-base) * var(--scale));
+    line-height: 2.05;
   }
 
-  /* The binding thread (signature). A single continuous 1px hairline running
-     down the reader's left gutter — the cord that binds a pothi's leaves. It is
-     drawn once on load, top-down. Granthi knots and folio numerals overlay it. */
-  .thread-rail {
-    position: relative;
-  }
-  .thread-rail::before {
-    content: "";
-    position: absolute;
-    top: 0.7rem;
-    bottom: 0.7rem;
-    left: calc(var(--thread-gutter) / 2);
-    width: 1px;
-    background: var(--line);
-    transform-origin: top center;
-    animation: thread-draw 0.4s ease-out both;
-  }
-  @keyframes thread-draw {
-    from {
-      transform: scaleY(0);
-    }
-    to {
-      transform: scaleY(1);
-    }
-  }
-
-  /* Brass granthi: the binding knot beside each verse. A small inlaid diamond. */
-  .granthi {
-    width: 7px;
-    height: 7px;
-    background: var(--gold);
-    transform: rotate(45deg);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffffff 22%, transparent);
-  }
-
-  /* Apparatus reveal: IAST / translation / glosses unfurl like a turned leaf. */
+  /* Apparatus reveal: IAST / translation / glosses fade and rise in on toggle. */
   .reveal {
-    animation: reveal 0.18s ease-out both;
+    animation: reveal 0.28s ease both;
   }
   @keyframes reveal {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(6px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
   }
 
-  /* Rendered Markdown notes — the prose that follows a chant's front matter.
-     The only `surface` panel in the article. */
+  /* Rendered Markdown notes — the prose that follows a chant's front matter. */
   .notes {
-    line-height: 1.75;
+    line-height: 1.72;
     color: var(--muted);
+    font-size: 0.95rem;
   }
   .notes h2 {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 400;
+    font-size: clamp(1.2rem, 1rem + 1vw, 1.45rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
     color: var(--ink);
     margin-top: 1.75rem;
     margin-bottom: 0.5rem;
@@ -280,10 +251,10 @@
   }
   .notes h3 {
     font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 400;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--ink);
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
     margin-bottom: 0.4rem;
   }
   .notes p {
