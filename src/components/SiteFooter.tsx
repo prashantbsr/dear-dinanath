@@ -1,45 +1,52 @@
 import { site } from "@/lib/site";
 
 /**
- * Quiet leaf-toned footer. A wordmark, a one-line svara legend that echoes the
- * signature once, the license + source, and a short note on the project's spirit.
+ * Quiet footer: a thin strip with a single top hairline. The wordmark, the
+ * license note with a source link, and a one-line svara legend echo (the tone
+ * marks rendered in the chant face, tinted with the secondary note).
  */
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-surface">
-      <div className="shell flex flex-col gap-3 py-10 text-sm text-muted">
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-          <span className="flex items-center gap-2.5 font-display text-base text-ink">
-            <span aria-hidden="true" className="granthi shrink-0" />
+    <footer
+      className="border-t border-line bg-canvas"
+      style={{ transition: "background-color 0.4s ease" }}
+    >
+      <div className="shell flex flex-wrap items-center justify-between gap-x-7 gap-y-3.5 py-7 text-sm text-muted">
+        <span className="flex items-baseline gap-2">
+          <span className="font-display text-sm font-bold text-ink">
             {site.name}
           </span>
-          <span className="flex items-center gap-2">
-            <span aria-hidden="true" className="font-devanagari text-secondary">
-              ◌॑
-            </span>
-            <span>udātta above</span>
-            <span aria-hidden="true" className="text-line">
-              ·
-            </span>
-            <span aria-hidden="true" className="font-devanagari text-secondary">
-              ◌॒
-            </span>
-            <span>anudātta below</span>
+          <span
+            aria-hidden="true"
+            lang="sa"
+            className="chant text-xs leading-none text-accent opacity-70"
+          >
+            {site.nameDevanagari}
           </span>
-        </div>
-        <p>
-          Open source under the MIT license.{" "}
+        </span>
+
+        <p className="text-xs leading-relaxed">
+          Open source under the MIT license ·{" "}
           <a
             href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-line underline-offset-4 transition-colors hover:text-ink"
+            className="text-accent underline underline-offset-2 transition-colors hover:text-ink"
           >
             View the source on GitHub
           </a>
-          .
         </p>
-        <p>Built to be read quietly, with no trackers and no noise.</p>
+
+        <p className="eyebrow flex items-center gap-2 normal-case tracking-normal">
+          <span aria-hidden="true" lang="sa" className="chant text-base leading-none text-secondary">
+            ◌॑
+          </span>
+          above ·
+          <span aria-hidden="true" lang="sa" className="chant text-base leading-none text-secondary">
+            ◌॒
+          </span>
+          below
+        </p>
       </div>
     </footer>
   );
