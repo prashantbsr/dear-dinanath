@@ -4,8 +4,6 @@
 
 ### दीनानाथ
 
-**A quiet place to learn Sanskrit and Vedic chants.**
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-A0522D.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -14,8 +12,39 @@
 </div>
 
 ---
+A static web app for make it easier for new generation to learn shlokas and chants.
 
-Dear Dinanath is a calm, fast, fully static web app for learning Sanskrit and Vedic chants. It presents each chant in accurate Devanagari with the traditional svara (tone) marks, alongside transliteration and word-by-word meaning, so you can read, study, and chant at your own pace. It is built to feel like a quiet study at dawn: unhurried, reverent, and free of clutter. 🪔
+(Atleast something must pass on!)
+
+### PURPOSE:
+- To make it easier for new generation to learn vedic chants.
+- Figure out and experiment with mental models to make the memorisation easier.
+
+### STRICTLY AVOIDED:
+- Anything that's boring.
+- Literal long meanings as part of the primary UI.
+- Anything in UI UX that's cringe like language learning apps.
+- Gamification of learning.
+
+
+### THINGS OF FOCUS:
+- Be bibliographically correct.
+- Devanagri should be correct.
+- UI UX should be extremely good.
+- Make the memorisation easier.
+
+I myself have read lots of sanatan scriptures end to end (the Gita Press ones).
+My observation is, if you are not genuinely painstakingly curious, you will not finish a book. It becomes too boring. Specially when you don't like devanagri (i really love devanagri).
+
+A lots of yound people want to learn the vedic shlokas and chanting. But they don't want to go to the boring sites or learn them in the traditional way, where you are taught a lots of things before starting chanting.
+
+I believe that first we need to figure out to make the chants memorise directly without any pre work. After that, let it up to the person if he wants to go inside the rabbit hole of the amazing stuff.
+
+UI UX concept:
+- Add only the stuff as primary that is really needed to kickstart and facilitate the memorisation.
+- Add the entry to rabbit hole as a tertiary thing. Rabiit hole is the genuine stuff.
+- There is no secondary thing. There needs to be a lot of gap between the memorisation and going to rabbit hole.
+
 
 ## ✨ Features
 
