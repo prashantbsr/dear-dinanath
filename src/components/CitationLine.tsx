@@ -21,7 +21,7 @@ export default function CitationLine({ items, className }: CitationLineProps) {
       {items.map((value, index) => (
         <span key={value}>
           {index > 0 && (
-            <span aria-hidden="true" className="text-accent-soft">
+            <span aria-hidden="true" className="opacity-60">
               {SEPARATOR}
             </span>
           )}
