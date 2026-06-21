@@ -77,22 +77,25 @@ export default function VerseCard({
         )}
 
         {showTranslation && (
-          <p className="reveal mt-5 max-w-[62ch] text-[1.075rem] leading-relaxed text-ink">
+          <p className="reveal mt-[clamp(0.875rem,3vw,1.125rem)] max-w-[62ch] text-[clamp(0.84rem,3.4vw,0.94rem)] leading-relaxed text-ink">
             {verse.translation}
           </p>
         )}
 
         {showWords && verse.words && verse.words.length > 0 && (
-          <dl className="reveal mt-6 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+          <dl className="reveal mt-[clamp(1rem,3vw,1.25rem)] grid grid-cols-[repeat(auto-fit,minmax(15.625rem,1fr))] gap-1.75">
             {verse.words.map((entry, wordIndex) => (
               <div
                 key={`${entry.word}-${wordIndex}`}
-                className="rounded-sm bg-surface-2 px-3.5 py-2.5"
+                className="flex items-baseline gap-2.5 rounded-lg bg-surface-2 px-3 py-2.25"
               >
-                <dt className="chant text-[1.15rem] leading-snug text-ink" lang="sa">
+                <dt
+                  className="chant shrink-0 text-base leading-none text-ink"
+                  lang="sa"
+                >
                   {entry.word}
                 </dt>
-                <dd className="mt-0.5 text-sm leading-snug text-muted">
+                <dd className="text-[0.78rem] leading-snug text-muted">
                   {entry.meaning}
                 </dd>
               </div>
