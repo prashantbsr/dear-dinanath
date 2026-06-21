@@ -1,59 +1,76 @@
 import Link from "next/link";
 
 import { site } from "@/lib/site";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeControls from "@/components/ThemeControls";
 
 /**
- * Sticky site header: a thin leaf-toned strip. Brass granthi + wordmark on the
- * left, quiet navigation, the source link, and the theme toggle on the right.
+ * Sticky site header: one thin surface strip with a single bottom hairline and no
+ * shadow. The wordmark (display face) sits beside a small Devanagari accent of the
+ * name; on the right are the quiet nav, the source link, and the theme controls.
  */
 export default function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-surface">
-      <div className="shell flex h-14 items-center justify-between gap-4">
+    <header
+      className="sticky top-0 z-50 border-b border-line bg-canvas"
+      style={{ transition: "background-color 0.4s ease" }}
+    >
+      <div className="shell flex min-h-(--header-h) flex-wrap items-center justify-between gap-3.5 py-2.5">
         <Link
           href="/"
-          className="group flex shrink-0 items-center gap-2.5 rounded-sm font-display text-lg tracking-tight text-ink"
+          aria-label={`${site.name} — home`}
+          className="flex shrink-0 items-baseline gap-2.25"
         >
-          <span aria-hidden="true" className="granthi shrink-0" />
-          <span className="whitespace-nowrap">{site.name}</span>
+          <span className="glow-text font-display text-lg font-bold tracking-tight text-ink">
+            {site.name}
+          </span>
+          <span
+            aria-hidden="true"
+            lang="sa"
+            className="chant text-[0.8rem] leading-none text-accent opacity-80"
+          >
+            {site.nameDevanagari}
+          </span>
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="flex items-center gap-1 text-muted sm:gap-1.5"
-        >
-          <Link
-            href="/"
-            className="rounded-sm px-2.5 py-1.5 text-sm transition-colors hover:text-ink"
+        <div className="flex items-center gap-[clamp(0.625rem,3vw,1.25rem)]">
+          <nav
+            aria-label="Primary"
+            className="flex items-center gap-[clamp(0.75rem,3vw,1.125rem)]"
           >
-            Chants
-          </Link>
-          <Link
-            href="/about"
-            className="rounded-sm px-2.5 py-1.5 text-sm transition-colors hover:text-ink"
-          >
-            About
-          </Link>
+            <Link
+              href="/"
+              className="py-1.5 text-[0.84rem] font-medium text-muted transition-colors hover:text-ink"
+            >
+              Chants
+            </Link>
+            <Link
+              href="/about"
+              className="py-1.5 text-[0.84rem] font-medium text-muted transition-colors hover:text-ink"
+            >
+              About
+            </Link>
+          </nav>
+
           <a
             href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="GitHub repository"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-sm transition-colors hover:text-ink"
+            aria-label="View the source on GitHub"
+            className="inline-flex h-9.5 w-9.5 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-ink"
           >
             <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
+              width="17"
+              height="17"
+              viewBox="0 0 16 16"
               fill="currentColor"
               aria-hidden="true"
             >
-              <path d="M12 1.5a10.5 10.5 0 0 0-3.32 20.46c.53.1.72-.22.72-.5l-.01-1.94c-2.92.63-3.54-1.25-3.54-1.25-.48-1.21-1.17-1.53-1.17-1.53-.95-.65.07-.64.07-.64 1.06.07 1.61 1.09 1.61 1.09.94 1.6 2.46 1.14 3.06.87.1-.68.37-1.14.66-1.4-2.33-.27-4.78-1.17-4.78-5.18 0-1.15.41-2.08 1.08-2.82-.11-.27-.47-1.34.1-2.79 0 0 .88-.28 2.88 1.07a9.98 9.98 0 0 1 5.24 0c2-1.35 2.88-1.07 2.88-1.07.57 1.45.21 2.52.1 2.79.67.74 1.08 1.67 1.08 2.82 0 4.02-2.46 4.9-4.8 5.16.38.33.71.97.71 1.96l-.01 2.9c0 .29.19.61.73.5A10.5 10.5 0 0 0 12 1.5Z" />
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
             </svg>
           </a>
-          <ThemeToggle />
-        </nav>
+
+          <ThemeControls />
+        </div>
       </div>
     </header>
   );
