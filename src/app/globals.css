@@ -1,59 +1,115 @@
 @import "tailwindcss";
 
-/* Class-based dark mode: toggled by adding `.dark` to <html>. Light is default. */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Palette selection is driven by `data-theme` on <html> (set before paint by
+   ThemeScript; defaults to "slate"). The `dark` variant is wired to the two dark
+   palettes so the rare `dark:` utility still works. */
+@custom-variant dark (&:where([data-theme="onyx"], [data-theme="onyx"] *, [data-theme="aura"], [data-theme="aura"] *, [data-theme="cyberpunk"], [data-theme="cyberpunk"] *));
 
 /* ----------------------------------------------------------------------------
-   Design tokens — see design.md. Defined as CSS variables so they can switch at
-   runtime for dark mode, then exposed to Tailwind via `@theme inline` (utilities
-   like bg-canvas, text-ink, text-accent, border-line, font-display).
+   Design tokens — see design.md. Each palette sets the same eleven color roles
+   as CSS variables; `@theme inline` (below) exposes them to Tailwind utilities
+   (bg-canvas, text-ink, text-accent, border-line, font-display, …).
 
-   Concept: the page is a palm-leaf manuscript (pothi). Toasted-ochre leaf,
-   oxidized-kumkum accent, brass for one precious touch, a quiet leaf-green note.
+   Five palettes ship: Slate (light, default) + Onyx (dark) are the core pair the
+   sun/moon toggle flips between; Aura, Cyberpunk, and Anime are extra palettes in
+   the swatch popover. `glow` is an optional text-shadow used only by Aura and
+   Cyberpunk; every other palette resolves it to `none`.
 ---------------------------------------------------------------------------- */
-:root {
+:root,
+[data-theme="slate"] {
   color-scheme: light;
 
-  --canvas: #efe6cf;
-  --surface: #f6f0df;
-  --surface-2: #e6dabb;
-  --ink: #2a2014;
-  --muted: #6c5d44;
-  --line: #cdbd98;
-  --accent: #8a3324;
-  --accent-soft: #b9714b;
-  --gold: #9a7411;
-  --secondary: #5c6b3a;
-  --ring: #8a3324;
+  --canvas: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #eef0f4;
+  --ink: #10131a;
+  --muted: #566071;
+  --line: #e4e7ec;
+  --accent: #5b54e6;
+  --accent-soft: #ecebfb;
+  --secondary: #0e8f8e;
+  --ring: #5b54e6;
+  --glow: none;
+}
 
-  /* The shared reading measure (header, main, footer all align to this). The
-     Devanagari verse uses the full width; prose/apparatus is capped at ~62ch. */
-  --measure: 54rem;
-  /* Left gutter inside the reader that carries the binding thread + folio. */
-  --thread-gutter: clamp(2.25rem, 1.5rem + 3vw, 3.25rem);
+[data-theme="onyx"] {
+  color-scheme: dark;
+
+  --canvas: #0a0b0f;
+  --surface: #13151c;
+  --surface-2: #1a1d26;
+  --ink: #eef0f5;
+  --muted: #9aa3b6;
+  --line: #222632;
+  --accent: #a99bff;
+  --accent-soft: #1d1b2e;
+  --secondary: #5fe6d0;
+  --ring: #a99bff;
+  --glow: none;
+}
+
+[data-theme="aura"] {
+  color-scheme: dark;
+
+  --canvas: #0c0a14;
+  --surface: #15111f;
+  --surface-2: #1d1730;
+  --ink: #f1ecff;
+  --muted: #a69fc6;
+  --line: #2a2142;
+  --accent: #c4a8ff;
+  --accent-soft: #211a36;
+  --secondary: #7af0ff;
+  --ring: #c4a8ff;
+  --glow: 0 0 22px color-mix(in srgb, var(--accent) 38%, transparent);
+}
+
+[data-theme="cyberpunk"] {
+  color-scheme: dark;
+
+  --canvas: #080611;
+  --surface: #110a20;
+  --surface-2: #190e2e;
+  --ink: #f6f0ff;
+  --muted: #b39ad8;
+  --line: #2c1846;
+  --accent: #ff2e9a;
+  --accent-soft: #2a0f24;
+  --secondary: #16f0ff;
+  --ring: #ff2e9a;
+  --glow: 0 0 20px color-mix(in srgb, var(--accent) 62%, transparent);
+}
+
+[data-theme="anime"] {
+  color-scheme: light;
+
+  --canvas: #f2f7ff;
+  --surface: #ffffff;
+  --surface-2: #eaf2ff;
+  --ink: #1b2440;
+  --muted: #5a6488;
+  --line: #dde7f7;
+  --accent: #e0367a;
+  --accent-soft: #ffe1ee;
+  --secondary: #2f7bef;
+  --ring: #e0367a;
+  --glow: none;
+}
+
+:root {
+  /* The shared reading measure (header, main, footer all align to this). Wide
+     enough to use a desktop screen without the content feeling boxed into a
+     narrow strip; prose/apparatus is still capped at ~62ch inside it. */
+  --measure: 64rem;
   /* Height of the sticky site header, so the controls strip can sit flush below. */
   --header-h: 3.5rem;
 
-  /* Base size of a displayed chant line. Single source of truth so the reader's
-     font-size control can scale it (see VerseCard) without duplicating it. Kept
-     moderate so long padas mostly hold one line; the reader can scale up. */
-  --chant-display-size: clamp(1.5rem, 1.05rem + 1.5vw, 2.1rem);
-}
-
-.dark {
-  color-scheme: dark;
-
-  --canvas: #171109;
-  --surface: #1f1810;
-  --surface-2: #2a2015;
-  --ink: #ece1c8;
-  --muted: #a8967a;
-  --line: #3a2e1e;
-  --accent: #cf6b4a;
-  --accent-soft: #9a5236;
-  --gold: #d7a93b;
-  --secondary: #9aa86a;
-  --ring: #cf6b4a;
+  /* Base size of a displayed chant line. The reader's size control multiplies it
+     by --scale (see VerseCard) so the responsive clamp stays in one place. Line
+     height is a constant 2.05 so the svara register scales proportionally and the
+     stacked tone marks never clip — even at the 1.6× maximum. */
+  --chant-base: clamp(1.6rem, 1.05rem + 1.8vw, 2.05rem);
+  --scale: 1;
 }
 
 @theme inline {
