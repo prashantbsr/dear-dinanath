@@ -103,6 +103,8 @@ npm run preview
 
 This serves the built `out/` directory at [http://localhost:1992](http://localhost:1992).
 
+(Yes. 1992. IYKYK.).
+
 > The app always runs on **port 1992**, in development, preview, and start.
 
 ## 🗂️ Project structure
