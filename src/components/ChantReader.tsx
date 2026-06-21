@@ -127,7 +127,7 @@ export default function ChantReader({ post }: ChantReaderProps) {
 
       {prefs.scriptMode === "accented" && <SvaraKey />}
 
-      <div className="thread-rail mt-8 space-y-12">
+      <div className="mt-[clamp(1.625rem,5vw,2.375rem)]">
         {post.verses.map((verse, index) => (
           <VerseCard
             key={index}
