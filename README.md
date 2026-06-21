@@ -11,6 +11,9 @@
 
 </div>
 
+> [!CAUTION]
+> At moment you will find many contradictions in the running app in contrast to the concept. This project is just started by Claude, and I will make more improvements soon.
+
 ---
 A static web app for make it easier for new generation to learn shlokas and chants.
 
@@ -25,13 +28,19 @@ A static web app for make it easier for new generation to learn shlokas and chan
 - Literal long meanings as part of the primary UI.
 - Anything in UI UX that's cringe like language learning apps.
 - Gamification of learning.
-
+- Use of non-mainstream hindi and sanskrit terminology.
 
 ### THINGS OF FOCUS:
 - Be bibliographically correct.
 - Devanagri should be correct.
 - UI UX should be extremely good.
 - Make the memorisation easier.
+
+UI UX:
+- Add only the stuff as primary that is really needed to kickstart and facilitate the memorisation.
+- Add the entry to rabbit hole as a tertiary thing. Rabiit hole is the genuine stuff.
+- There is no secondary thing. There needs to be a lot of gap between the memorisation and going to rabbit hole.
+
 
 I myself have read lots of sanatan scriptures end to end (the Gita Press ones).
 My observation is, if you are not genuinely painstakingly curious, you will not finish a book. It becomes too boring. Specially when you don't like devanagri (i really love devanagri).
@@ -40,10 +49,7 @@ A lots of yound people want to learn the vedic shlokas and chanting. But they do
 
 I believe that first we need to figure out to make the chants memorise directly without any pre work. After that, let it up to the person if he wants to go inside the rabbit hole of the amazing stuff.
 
-UI UX concept:
-- Add only the stuff as primary that is really needed to kickstart and facilitate the memorisation.
-- Add the entry to rabbit hole as a tertiary thing. Rabiit hole is the genuine stuff.
-- There is no secondary thing. There needs to be a lot of gap between the memorisation and going to rabbit hole.
+
 
 
 ## ✨ Features
