@@ -21,10 +21,11 @@ function toDevanagari(value: number): string {
 }
 
 /**
- * A single verse rendered as a leaf, not a card. The left gutter carries the
- * binding thread: a brass granthi knot and the Devanagari folio numeral anchor
- * the verse. The Devanagari is the hero, with transliteration, translation, and
- * word glosses revealed on demand and aligned to one shared left edge.
+ * One verse, separated from the next by whitespace and a single top hairline — no
+ * card, no shadow. A Devanagari folio numeral anchors it in the left gutter; the
+ * Devanagari is the hero (chant scale × the reader's --scale, line-height held at
+ * 2.05 so the svara marks never clip). The apparatus — IAST, translation, word
+ * glosses — reveals on demand, aligned to one shared left edge.
  */
 export default function VerseCard({
   verse,
@@ -38,40 +39,37 @@ export default function VerseCard({
   const devanagari =
     scriptMode === "plain" ? verse.plain ?? verse.devanagari : verse.devanagari;
 
-  // Scale the shared --chant-display-size token (defined in globals.css) by the
-  // reader's chosen text size. This keeps the responsive clamp in one place.
-  const chantStyle = {
-    fontSize: `calc(var(--chant-display-size) * ${fontScale})`,
-  };
-
   return (
-    <article className="grid grid-cols-[var(--thread-gutter)_minmax(0,1fr)]">
-      {/* Gutter: the granthi knot + folio numeral, sitting on the thread. */}
-      <div className="flex flex-col items-center gap-2 pt-3">
-        <span aria-hidden="true" className="granthi" />
-        <span aria-hidden="true" className="chant text-[0.95rem] leading-none text-muted">
+    <article className="flex gap-[clamp(0.75rem,3vw,1.25rem)] border-t border-line py-[clamp(1.25rem,4vw,1.875rem)]">
+      {/* Gutter: the Devanagari folio numeral. */}
+      <div className="w-6.5 shrink-0 pt-1.5">
+        <span
+          aria-hidden="true"
+          lang="sa"
+          className="chant text-lg leading-none text-muted opacity-70"
+        >
           {toDevanagari(index + 1)}
         </span>
         <span className="sr-only">Verse {index + 1}</span>
       </div>
 
       {/* Content: the hero Devanagari and the revealed apparatus. */}
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <p
-          className="chant chant-display whitespace-pre-line text-ink"
-          style={chantStyle}
+          className="chant chant-display whitespace-pre-line font-medium text-ink"
+          style={{ "--scale": fontScale } as React.CSSProperties}
           lang="sa"
         >
           {devanagari}
         </p>
 
         {showTransliteration && (
-          <div className="reveal mt-5 max-w-[62ch] space-y-2">
-            <p className="whitespace-pre-line text-[1.05rem] italic leading-relaxed text-muted">
+          <div className="reveal mt-[clamp(1rem,3vw,1.25rem)] max-w-[62ch]">
+            <p className="whitespace-pre-line font-text text-[clamp(0.84rem,3.4vw,0.94rem)] italic leading-relaxed text-muted">
               {verse.transliteration}
             </p>
             {verse.phonetic && (
-              <p className="whitespace-pre-line text-sm leading-relaxed text-muted">
+              <p className="mt-1.5 whitespace-pre-line font-mono text-[0.78rem] leading-relaxed text-muted opacity-75">
                 {verse.phonetic}
               </p>
             )}
