@@ -1,6 +1,7 @@
 # Design System — Dear Dinanath
 
-> A quiet study at dawn: unhurried, reverent, free of clutter.
+> A quiet study at dawn: unhurried, reverent, legible, free of clutter — a
+> considered reading instrument, not a consumer app.
 
 This is the single source of truth for how Dear Dinanath looks and feels. Every
 color, type, and spacing decision below is implemented as a token in
