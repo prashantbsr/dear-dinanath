@@ -8,20 +8,24 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-[65ch]">
-      <article className="flex flex-col gap-10">
+    <div className="max-w-[62ch]">
+      <article className="flex flex-col gap-9">
         <header className="flex flex-col gap-3">
-          <p aria-hidden="true" className="chant text-2xl text-accent" lang="sa">
+          <p
+            aria-hidden="true"
+            lang="sa"
+            className="glow-text chant text-[0.95rem] leading-none text-accent"
+          >
             {site.nameDevanagari}
           </p>
-          <h1 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
+          <h1 className="glow-text font-display text-[clamp(1.875rem,7vw,2.625rem)] font-semibold leading-[1.05] tracking-tight text-ink">
             About {site.name}
           </h1>
           <p className="text-muted">{site.tagline}</p>
         </header>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl tracking-tight text-ink">
+        <section className="flex flex-col gap-2.5">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
             A quiet place to learn
           </h2>
           <p className="text-muted">
@@ -39,7 +43,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl tracking-tight text-ink">Why it exists</h2>
+          <h2 className="font-display text-xl font-semibold tracking-tight text-ink">Why it exists</h2>
           <p className="text-muted">
             Chants are easy to find and surprisingly hard to learn well. Many
             sources drop the svara tone marks, blur the transliteration, or
@@ -56,7 +60,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl tracking-tight text-ink">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
             How the content works
           </h2>
           <p className="text-muted">
@@ -83,7 +87,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl tracking-tight text-ink">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
             The technology
           </h2>
           <p className="text-muted">
@@ -102,7 +106,7 @@ export default function AboutPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl tracking-tight text-ink">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
             A note on accuracy
           </h2>
           <p className="text-muted">
