@@ -1,49 +1,35 @@
-import { getAllPosts, getPostsByCategory } from "@/lib/posts";
-import { site } from "@/lib/site";
+import { getPostsByCategory } from "@/lib/posts";
 import ChantCard from "@/components/ChantCard";
 
 export default function HomePage() {
   const groups = getPostsByCategory();
-  const total = getAllPosts().length;
-  const chantWord = total === 1 ? "chant" : "chants";
 
   return (
     <>
-      <section className="relative">
-        {/* Soft accent glow behind the intro — purely decorative. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-10 right-0 -z-10 h-80 w-[min(60vw,22.5rem)]"
-          style={{
-            background:
-              "radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%)",
-          }}
-        />
+      {/* Soft accent glow in the corner — fixed and full-bleed, purely
+          decorative. Sits below the header (top = --header-h) so it isn't
+          clipped to the reading column. Hidden on small screens, where the
+          narrow layout leaves no room for it to read as anything but a smudge. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed right-0 top-(--header-h) -z-10 hidden h-[62vh] w-[min(50vw,520px)] sm:block"
+        style={{
+          background:
+            "radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%)",
+        }}
+      />
 
-        <p
-          className="glow-text chant text-[0.95rem] leading-none text-accent"
-          lang="sa"
-          aria-hidden="true"
-        >
-          {site.nameDevanagari}
-        </p>
-
-        <h1 className="glow-text mt-4 max-w-[20ch] text-balance font-display text-[clamp(1.875rem,7vw,2.75rem)] font-semibold leading-[1.04] tracking-tight text-ink">
-          A quiet place to learn Sanskrit &amp; Vedic chants.
+      <section className="relative flex min-h-[34vh] flex-col justify-center py-8 sm:min-h-[40vh]">
+        <h1 className="glow-text max-w-[14ch] font-display text-[clamp(3rem,13vw,6rem)] font-bold leading-[0.92] tracking-[-0.04em] text-ink">
+          Learn it <span className="text-accent">first.</span>
         </h1>
-
-        <p className="mt-4.5 max-w-[34rem] text-[clamp(0.875rem,3.6vw,0.97rem)] leading-relaxed text-muted">
-          Sit with one hymn and study it at your own pace — read the Devanagari
-          with its tone marks, follow a transliteration, and understand it word by
-          word, until the chant settles into memory.
-        </p>
-
-        <p className="eyebrow mt-5.5">
-          {total} {chantWord} to study
-        </p>
+        <span
+          aria-hidden="true"
+          className="mt-7 block h-0.5 w-14 rounded-full bg-accent opacity-80"
+        />
       </section>
 
-      <div className="mt-12">
+      <div className="mt-8 sm:mt-12">
         {groups.map((group) => (
           <section key={group.category} aria-labelledby={`cat-${group.category}`}>
             <h2
