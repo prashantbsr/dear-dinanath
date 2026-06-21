@@ -2,11 +2,15 @@ import Link from "next/link";
 
 import { site } from "@/lib/site";
 import ThemeControls from "@/components/ThemeControls";
+import MobileNav from "@/components/MobileNav";
 
 /**
- * Sticky site header: one thin surface strip with a single bottom hairline and no
- * shadow. The wordmark (display face) sits beside a small Devanagari accent of the
- * name; on the right are the quiet nav, the source link, and the theme controls.
+ * Sticky site header: one thin, full-width surface strip with a single bottom
+ * hairline and no shadow. It spans the viewport (no centered measure), so the
+ * wordmark (display face) sits flush left beside a small Devanagari accent of the
+ * name, and the quiet nav, source link, and theme controls sit flush right. On
+ * narrow screens that whole right-hand toolbar collapses into a single hamburger
+ * menu (MobileNav), leaving just the wordmark and the menu button.
  */
 export default function SiteHeader() {
   return (
@@ -14,7 +18,7 @@ export default function SiteHeader() {
       className="sticky top-0 z-50 border-b border-line bg-canvas"
       style={{ transition: "background-color 0.4s ease" }}
     >
-      <div className="shell flex min-h-(--header-h) flex-wrap items-center justify-between gap-3.5 py-2.5">
+      <div className="flex min-h-(--header-h) w-full items-center justify-between gap-3.5 px-[clamp(18px,4vw,48px)] py-2.5">
         <Link
           href="/"
           aria-label={`${site.name} — home`}
@@ -35,7 +39,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-[clamp(0.625rem,3vw,1.25rem)]">
           <nav
             aria-label="Primary"
-            className="flex items-center gap-[clamp(0.75rem,3vw,1.125rem)]"
+            className="hidden items-center gap-[clamp(0.75rem,3vw,1.125rem)] sm:flex"
           >
             <Link
               href="/"
@@ -56,7 +60,7 @@ export default function SiteHeader() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View the source on GitHub"
-            className="inline-flex h-9.5 w-9.5 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-ink"
+            className="hidden h-9.5 w-9.5 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-ink sm:inline-flex"
           >
             <svg
               width="17"
@@ -69,7 +73,11 @@ export default function SiteHeader() {
             </svg>
           </a>
 
-          <ThemeControls />
+          <div className="hidden sm:flex">
+            <ThemeControls />
+          </div>
+
+          <MobileNav />
         </div>
       </div>
     </header>
