@@ -145,21 +145,25 @@
     background-color: var(--canvas);
     color: var(--ink);
     font-family: var(--font-text);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    /* Theme cross-fade — collapses to instant under reduced-motion below. */
+    transition: background-color 0.4s ease, color 0.4s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    background: var(--accent-soft);
+    color: var(--ink);
   }
   :focus-visible {
     outline: 2px solid var(--ring);
-    outline-offset: 2px;
-    border-radius: 4px;
+    outline-offset: 3px;
+    border-radius: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
-    * {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
