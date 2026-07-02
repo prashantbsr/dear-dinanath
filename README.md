@@ -22,6 +22,7 @@ A static web app for make it easier for new generation to learn shlokas and chan
 ### PURPOSE:
 - To make it easier for new generation to learn vedic chants.
 - Figure out and experiment with mental models to make the memorisation easier.
+- Inquiry on the use of Sanskrit as a compression layer, or maybe a way to increase the bandwidth of knowledge consumption by humans.
 
 ### STRICTLY AVOIDED:
 - Anything that's boring.
